@@ -7,17 +7,30 @@ import org.yaml.snakeyaml.Yaml
 
 class AnsibleReader implements Serializable {
     def script
+    def inventaire
     AnsibleReader(def script) {
         this.script = script;
     }
 
-    def test(String inventaire) {
-        File file = new File(inventaire)
-        FileInputStream stream = new FileInputStream(file)
-        Yaml parser = new Yaml()
-        def map = parser.load(stream)
-        this.script.echo(map.get('faius_container_name'))
+    def getInventaire(String inventaire) {
+        if (this.inventaire == null) {
+            this.inventaire = new Inventaire(inventaire)
+        }
+        return this.inventaire;
+    }
 
-        this.script.echo("allo")
+    class Inventaire implements Serializable {
+        def mapInventaire
+
+        Inventaire(def inventaire) {
+            File file = new File(inventaire)
+            FileInputStream stream = new FileInputStream(file)
+            Yaml parser = new Yaml()
+            mapInventaire = parser.load(stream)
+        }
+
+        def getPropriete(String nom) {
+            return mapInventaire.get(nom)
+        }
     }
 }
