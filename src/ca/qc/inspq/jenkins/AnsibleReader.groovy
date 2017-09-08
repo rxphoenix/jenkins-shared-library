@@ -6,11 +6,7 @@ package ca.qc.inspq.jenkins
 import org.yaml.snakeyaml.Yaml
 
 class AnsibleReader implements Serializable {
-    def script
     def inventaire
-    AnsibleReader(def script) {
-        this.script = script;
-    }
 
     def getInventaire(String inventaire) {
         if (this.inventaire == null) {
