@@ -1,6 +1,6 @@
 package ca.qc.inspq.jenkins
 
-class AnsibleReader {
+class AnsibleReader implements Serializable {
     def test() {
         sh('echo "allo"')
     }
