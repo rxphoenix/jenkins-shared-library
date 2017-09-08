@@ -6,27 +6,16 @@ package ca.qc.inspq.jenkins
 import org.yaml.snakeyaml.Yaml
 
 class AnsibleReader implements Serializable {
-    def inventory
+    def inventoryContent
 
-    def getInventory(String inventoryPath) {
-        if (this.inventory == null) {
-            this.inventory = new Inventory(inventoryPath)
-        }
-        return this.inventory;
+    AnsibleReader(String inventoryPath) {
+        File file = new File(inventoryPath)
+        FileInputStream stream = new FileInputStream(file)
+        Yaml parser = new Yaml()
+        this.inventoryContent = parser.load(stream)
     }
 
-    class Inventory implements Serializable {
-        def inventoryContent
-
-        Inventory(def inventoryPath) {
-            File file = new File(inventoryPath)
-            FileInputStream stream = new FileInputStream(file)
-            Yaml parser = new Yaml()
-            inventoryContent = parser.load(stream)
-        }
-
-        def getValueFromKey(String name) {
-            return inventoryContent.get(name)
-        }
+    def getValueFromKey(String name) {
+        return inventoryContent.get(name)
     }
 }
