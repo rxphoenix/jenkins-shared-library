@@ -11,10 +11,13 @@ class AnsibleReader implements Serializable {
         this.script = script;
     }
 
-    def test() {
-        //sh('echo "allo"')
-        //echo "allo"
+    def test(String inventaire) {
+        File file = new File(inventaire)
+        FileInputStream stream = new FileInputStream(file)
         Yaml parser = new Yaml()
+        def map = parser.load(stream)
+        this.script.echo(map.get('faius_container_name'))
+
         this.script.echo("allo")
     }
 }
