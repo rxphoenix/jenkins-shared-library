@@ -25,7 +25,7 @@ class AnsibleReader implements Serializable {
             inventoryContent = parser.load(stream)
         }
 
-        def getProperty(String name) {
+        def getValueFromKey(String name) {
             return inventoryContent.get(name)
         }
     }
