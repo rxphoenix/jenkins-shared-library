@@ -1,11 +1,11 @@
 package ca.qc.inspq.jenkins
 
 class AnsibleReader implements Serializable {
-    WorkflowScript script
-    AnsibleReader(WorkflowScript script) {
+    def script
+    AnsibleReader(def script) {
         this.script = script;
     }
-    
+
     def test() {
         //sh('echo "allo"')
         //echo "allo"
